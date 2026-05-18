@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'OpenWRT version (e.g., 24.10.5)'
+        description: 'Immortalwrt version (e.g., 24.10.5)'
         required: true
         type: string
       targets:
