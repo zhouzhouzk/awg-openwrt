@@ -1,13 +1,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=amneziawg-tools
-PKG_VERSION:=1.0.20260223
+PKG_VERSION:=1.0.20260618
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/amnezia-vpn/amneziawg-tools.git
 # Version: latest stable release tag
-PKG_SOURCE_VERSION:=v$(PKG_VERSION)
+# TODO: при следующем обновлении убрать -2
+PKG_SOURCE_VERSION:=v$(PKG_VERSION)-2
 
 PKG_LICENSE:=GPL-2.0
 PKG_LICENSE_FILES:=COPYING
@@ -20,14 +21,16 @@ MAKE_PATH:=src
 MAKE_VARS += PLATFORM=linux
 
 define Package/amneziawg-tools
+  SECTION:=net
   CATEGORY:=Network
   SUBMENU:=VPN
   URL:=https://amnezia.org/
   MAINTAINER:=Amnezia Admin <admin@amnezia.org>
   TITLE:=AmneziaWG userspace control program (awg)
   DEPENDS:= \
-	  +@BUSYBOX_CONFIG_IP \
-	  +@BUSYBOX_CONFIG_FEATURE_IP_LINK
+	  +!BUSYBOX_CONFIG_IP:ip \
+	  +!BUSYBOX_CONFIG_FEATURE_IP_LINK:ip \
+	  +kmod-amneziawg
 endef
 
 define Package/amneziawg-tools/description
